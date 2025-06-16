@@ -801,22 +801,33 @@ def chat_report_feedback_view(request, chat_id):
         "chat_id": chat_id,
     })
 
-def get_base64_image(image_path):
-    if image_path.startswith("media/"):
-        image_path = image_path[len("media/"):]
-    elif image_path.startswith("/media/"):
-        image_path = image_path[len("/media/"):]
-
-    full_path = os.path.join(settings.MEDIA_ROOT, image_path)
-
+def get_base64_image(image_path_or_url):
     try:
-        with open(full_path, "rb") as img_file:
-            encoded = base64.b64encode(img_file.read()).decode("utf-8")
-            mime_type, _ = mimetypes.guess_type(full_path)
-            return encoded, mime_type or "image/jpeg"
-    except FileNotFoundError:
-        print(f"[오류] 파일을 찾을 수 없습니다: {full_path}")
+        if image_path_or_url.startswith("http"):
+            response = requests.get(image_path_or_url, timeout=5)
+            if response.status_code == 200:
+                mime_type = response.headers.get("Content-Type", "image/jpeg")
+                base64_str = base64.b64encode(response.content).decode("utf-8")
+                return base64_str, mime_type
+            else:
+                print(f"[오류] S3 이미지 요청 실패: {response.status_code}")
+                return None, None
+        else:
+            if image_path_or_url.startswith("media/"):
+                image_path_or_url = image_path_or_url[len("media/"):]
+            elif image_path_or_url.startswith("/media/"):
+                image_path_or_url = image_path_or_url[len("/media/"):]
+
+            full_path = os.path.join(settings.MEDIA_ROOT, image_path_or_url)
+
+            with open(full_path, "rb") as img_file:
+                encoded = base64.b64encode(img_file.read()).decode("utf-8")
+                mime_type, _ = mimetypes.guess_type(full_path)
+                return encoded, mime_type or "image/jpeg"
+    except Exception as e:
+        print(f"[오류] 이미지 인코딩 실패: {str(e)}")
         return None, None
+
 
 @api_view(['POST'])
 def generate_report(request):
