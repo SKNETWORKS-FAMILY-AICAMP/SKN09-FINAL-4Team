@@ -1,12 +1,13 @@
 {% load static %}
 {% load custom_markdown %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PetMind | 상담 채팅</title>
+  <title>PetMind | 상당 채팅</title>
   <link rel="icon" href="{% static 'images/petmind_logo_dog.png' %}" type="image/png" />
 
   <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet">
@@ -30,38 +31,43 @@
 
     <main class="chat-main">
       <div class="chat-history" data-chat-id="{{ chat.id }}" data-dog-id="{{ dog.id }}">
-        
-        {% for m in messages %}
-          <div class="chat-message-wrapper {% if m.sender == 'user' %}user-side{% else %}bot-side{% endif %}">
-            
-            {% if m.images.all %}
-              <div class="chat-image-block" style="margin-top: 4px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: {% if m.sender == 'user' %}flex-end{% else %}flex-start{% endif %};">
-                {% for img in m.images.all %}
-                  <img src="{{ img.image.url }}" class="preview-image" alt="업로드 이미지" style="width:80px;height:80px;object-fit:cover;border-radius:8px;">
-                {% endfor %}
-              </div>
-            {% endif %}
+        {% with prev_date=None %}
+          {% for m in messages %}
+            {% with current_date=m.created_at.date %}
+              {% ifchanged current_date %}
+                <div class="date-separator">{{ current_date|natural_date }}</div>
+              {% endifchanged %}
+            {% endwith %}
 
-            <div class="chat-message-block" style="display: flex; justify-content: {% if m.sender == 'user' %}flex-end{% else %}flex-start{% endif %}; align-items: flex-end; gap: 6px; width: 100%;">
-              {% if m.sender == 'user' %}
-                <span class="chat-time side-time left-time" data-time="{{ m.created_at|date:'c' }}">{{ m.created_at|date:"A h:i" }}</span>
-                <div class="chat-message user-message">
-                  <div class="message-content">
-                    {{ m.message }}
-                  </div>
+            <div class="chat-message-wrapper {% if m.sender == 'user' %}user-side{% else %}bot-side{% endif %}">
+              {% if m.images.all %}
+                <div class="chat-image-block" style="margin-top: 4px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: {% if m.sender == 'user' %}flex-end{% else %}flex-start{% endif %};">
+                  {% for img in m.images.all %}
+                    <img src="{{ img.image.url }}" class="preview-image" alt="업로드 이미지" style="width:80px;height:80px;object-fit:cover;border-radius:8px;">
+                  {% endfor %}
                 </div>
-              {% else %}
-                <div class="chat-message bot-message">
-                  <div class="message-content">
-                    {{ m.message|custom_markdown_parse|safe }}
-                  </div>
-                </div>
-                <span class="chat-time side-time right-time" data-time="{{ m.created_at|date:'c' }}">{{ m.created_at|date:"A h:i" }}</span>
               {% endif %}
-            </div>
 
-          </div>
-        {% endfor %}
+              <div class="chat-message-block" style="display: flex; justify-content: {% if m.sender == 'user' %}flex-end{% else %}flex-start{% endif %}; align-items: flex-end; gap: 6px; width: 100%;">
+                {% if m.sender == 'user' %}
+                  <span class="chat-time side-time left-time" data-time="{{ m.created_at|date:'c' }}">{{ m.created_at|date:"A h:i" }}</span>
+                  <div class="chat-message user-message">
+                    <div class="message-content">
+                      {{ m.message }}
+                    </div>
+                  </div>
+                {% else %}
+                  <div class="chat-message bot-message">
+                    <div class="message-content">
+                      {{ m.message|custom_markdown_parse|safe }}
+                    </div>
+                  </div>
+                  <span class="chat-time side-time right-time" data-time="{{ m.created_at|date:'c' }}">{{ m.created_at|date:"A h:i" }}</span>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        {% endwith %}
       </div>
 
       <div class="recommend-info-box" id="recommendTrigger"
@@ -97,7 +103,24 @@
           </button>
         </div>
       </form>
-      <div class="helper-text">PetMind는 반려견의 이해를 돕는 AI 상담 도우미입니다. 반려견의 건강 문의 사항은 전문가와 상의해보세요.</div>
+      <div class="helper-text">PetMind는 반려견의 이해를 도움보는 AI 상당 도움이입니다. 반려견의 건강 문의 사항은 전문가와 상의해보세요.</div>
+      <button id="scrollToBottomBtn" style="
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+        padding: 10px 16px;
+        font-size: 14px;
+        border-radius: 20px;
+        background-color: #ffde7a;
+        border: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        display: none;
+        cursor: pointer;
+      ">
+        ⬇ 질문 입력 창으로 이동
+      </button>
     </main>
   </div>
 
