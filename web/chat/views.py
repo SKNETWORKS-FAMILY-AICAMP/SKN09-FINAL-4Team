@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from user.utils import get_logged_in_user
 from collections import defaultdict
 from django.http import HttpResponseForbidden
-from datetime import date, timedelta
+from datetime import date, timedelta, time
 from asgiref.sync import sync_to_async
 import uuid
 import requests
@@ -751,6 +751,7 @@ def submit_review(request):
         return JsonResponse({'status': 'invalid_json'}, status=400)
     
 
+
 def load_chat_and_profile(chat_id, start_date, end_date):
     try:
         chat = Chat.objects.select_related("dog").get(id=chat_id)
@@ -774,24 +775,26 @@ def load_chat_and_profile(chat_id, start_date, end_date):
     }
 
     try:
-        kst = pytz.timezone("Asia/Seoul")
-        start_dt = kst.localize(datetime.strptime(start_date, "%Y-%m-%d"))
-        end_dt = kst.localize(datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=1))
+        start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+        end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+
+        start_dt = make_aware(datetime.combine(start_dt, time.min)) 
+        end_dt = make_aware(datetime.combine(end_dt, time.max))   
     except ValueError:
         return dog_dict, []
 
     messages = Message.objects.filter(
         chat_id=chat_id,
-        created_at__gte=start_dt,
-        created_at__lt=end_dt
+        created_at__range=(start_dt, end_dt)
     ).order_by("created_at")
 
     history = [
         {"role": "user" if msg.sender == "user" else "assistant", "content": msg.message}
         for msg in messages if msg.message
     ]
-
     return dog_dict, history
+
+
 def chat_report_feedback_view(request, chat_id):
     chat = get_object_or_404(Chat, id=chat_id)
     return render(request, 'chat/chat_report_feedback.html', {
