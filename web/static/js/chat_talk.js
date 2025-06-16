@@ -367,4 +367,25 @@ function customMarkdownParse(text) {
 
   const elements = document.querySelectorAll(".chat-message-wrapper");
   elements.forEach(el => el.classList.add("no-flex"));
+
+  const scrollBtn = document.getElementById('scrollToBottomBtn');
+
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', () => {
+      const threshold = 300; 
+      const scrolledFromBottom = document.body.scrollHeight - (window.scrollY + window.innerHeight);
+      
+      if (scrolledFromBottom > threshold) {
+        scrollBtn.style.display = 'block';
+      } else {
+        scrollBtn.style.display = 'none';
+      }
+    });
+
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' });
+  }
 });

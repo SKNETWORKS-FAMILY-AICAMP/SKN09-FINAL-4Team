@@ -188,6 +188,24 @@
   gap: 10px;
 }
 
+.date-separator {
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+  margin: 32px 0 16px 0;
+  position: relative;
+}
+.date-separator::before,
+.date-separator::after {
+  content: "";
+  display: inline-block;
+  width: 40%;
+  height: 1px;
+  background: #ccc;
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
 .recommend-btn {
   background: none;
   border: none;
