@@ -197,7 +197,7 @@
 
 # 6. Deployment Pipeline
 
-![image](https://github.com/user-attachments/assets/6ebbc791-2131-412a-ae14-972d91036fed)
+![image](https://github.com/user-attachments/assets/0b5a1bf7-4726-47e3-99c9-4fdef9ddee20)
 
 
 * **Django** 기반 웹 서비스를 **Docker**로 컨테이너화하고, **AWS EC2·S3·RDS**와 연계하여 인프라를 구성하였으며, **LangChain**과 **RunPod AP**I를 통해 RAG 기반 챗봇 응답 제공.
