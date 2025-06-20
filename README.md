@@ -2,9 +2,6 @@
 > SK네트웍스 Family AI 캠프 9기 4팀 FINAL PROJECT <br>
 > 개발기간: 25.04.21 - 25.06.20
 
-<br>
-<br>
-
 ---
 # 📚 Contents
 
@@ -27,9 +24,7 @@
 
 #### 💡팀명: PetMind
 #### 💡프로젝트명: LLM을 활용한 반려견 상담 챗봇
-<br>
-
-##### ⬇️팀원 소개 ⬇️
+#### 💡팀원 소개:
 
 <table align="center" width="100%">
   <tr>
@@ -47,10 +42,10 @@
     </td>
   </tr>
   <tr>
-    <td align="center"><img src="./images/수연.jpg" width="80px" /></td>
-    <td align="center"><img src="./images/다인.jpg" width="80px" /></td>
-    <td align="center"><img src="C:/Users/Playdata/Downloads/하늘.jpg" width="100px" /></td>
-    <td align="center"><img src="./images/도연.jpg" width="100px" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/97557325-c1cf-43d2-b6b3-1dab55d37298" width="100px" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/3d9faa19-9604-415e-a8cf-063ac63e2335" width="100px" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/c9fb5eb4-24f8-4a06-bbf8-5aadc063c285" width="100px" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/491113ff-c15c-4170-92f8-dfdd23578f05" width="100px" /></td>
   </tr>
 </table>
 
@@ -62,10 +57,10 @@
 # 2. Project Overview
 
 ### ✅ 프로젝트 소개
-**PetMind**는 반려견의 행동 문제와 일상 궁금증을 상담하는 AI 챗봇으로,
-사용자는 반려견의 나이, 견종, 성격 등 프로필을 입력하고 LLM 기반 상담을 통해 **반려견의 특성과 상황에 맞는 맞춤형 조언을 받을 수 있는 서비스입**니다.<br>
-행동 문제 분석뿐 아니라, 상담 요약 리포트, 반려견 MBTI, 관련 콘텐츠 추천까지 제공하여 보호자가 반려견을 더 깊이 이해하고 케어할 수 있도록 도우며 **텍스트 입력**과 **이미지 인식**을 통한 상담 데이터를 기반으로 실질적인 행동 개선과 보호자 만족도를 높여 누구보다 반려견을 잘 알고 싶은 보호자에게, PetMind는 가장 가까운 AI 파트너가 되어드립니다.
-
+PetMind는 텍스트와 이미지 입력을 기반으로 반려견의 행동 문제와 일상 궁금증을 상담할 수 있는 AI 챗봇입니다.
+사용자는 반려견의 나이, 견종, 성격 등 프로필을 입력하고, 다양한 입력 수단을 통해 반려견의 특성과 상황에 맞는 맞춤형 조언을 받을 수 있습니다.
+행동 문제 분석뿐만 아니라, 상담 내용을 정리해주는 요약 리포트, 반려견의 성향을 파악할 수 있는 MBTI, 보호자에게 도움이 될만한 관련 콘텐츠 추천까지 제공하여,
+보호자가 반려견을 더 깊이 이해하고 일상 속에서 효과적으로 케어할 수 있도록 PetMind가 든든한 동반자가 되어줍니다.
 
 
 
@@ -76,16 +71,14 @@
 <table align="center">
   <tr>
     <td align="center">
-      <img src="./images/필요성1.jpg" width="200">
-    </td>
-    <td align="center">
-      <img src="./images/필요성2.jpg" width="200">
+      <img src="https://github.com/user-attachments/assets/e9d5fb45-f359-460f-9b39-3639d567d898" width="800" height="330">
     </td>
   </tr>
 </table>
 
-반려동물 가구 수가 꾸준히 증가하면서 오늘 날 4가구 중 1가구는 반려동물을 키우고 있을 정도로 관련 시장이 거대해졌지만 커진 시장만큼 반려동물 문제로 어려움을 겪는 보호자도 함께 늘어나고 있습니다. 이러한 문제는 반려동물의 정서뿐 아니라 보호자의 일상과 관계에도 영향을 미칩니다. <br>
-그러나 전문적인 행동 교정은 비용과 접근성의 제약으로 누구나 쉽게 이용하기 어렵고,
+지난 10년 간 반려동물을 키우는 가구 수가 꾸준히 증가하면서 현재 약 600만 가구가 반려동물을 키우고 있을 정도로 관련 시장이 거대해졌습니다.
+하지만 커진 시장만큼 반려동물 문제로 어려움을 겪는 보호자도 함께 늘어나고 있습니다.
+이러한 문제는 반려동물의 정서뿐 아니라 보호자의 일상과 관계에도 영향을 미칩니다. 그러나 전문적인 행동 교정은 비용과 접근성의 제약으로 누구나 쉽게 이용하기 어렵고,
 정보 검색만으로는 개별 상황에 맞는 해결책을 찾기 어렵습니다.
 문제는 명확하지만, 이를 일상적으로 해결해줄 개인화된 상담 시스템은 부족한 실정입니다.
 이에 따라, 누구나 쉽게 접근할 수 있는 AI 기반 반려견 상담 서비스의 필요성이 커지고 있습니다.
@@ -93,16 +86,6 @@
 
 
 <br>
-
-### ✅ 프로젝트 목표
-
-- 반려인의 스트레스 감소와 정서적 안정 지원
-- 전문 상담 접근성 개선을 통한 돌봄 격차 해소
-- 반려견 행동 문제의 신속하고 효과적인 해결
-- 반려견 관련 사회적 갈등 및 문제 예방에 기여
-
-
-
 <br>
 
 ---
@@ -208,3 +191,9 @@
 
 # 7. Live Demo
 
+> #### 아래 이미지를 클릭하시면 시연 영상을 보실 수 있습니다.
+
+
+[![image](https://github.com/user-attachments/assets/73a9ad1b-f656-4d50-a374-5ed7bd2b8f69)](https://drive.google.com/file/d/1D22pW4XgrmYlnF-g-Frt0jC7Jrg3p-e2/view?usp=sharing)
+
+<br><br>
